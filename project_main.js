@@ -66,12 +66,29 @@ const getBet = (balance, lines) => {
 
 const spinSlot = ()=> {
     const symbols = [];
-    for(const [symbols, count] of Object.entries(SYMBOL_COUNTS)) {
-        console.log(symbols,count);
+    for(const [symbol, count] of Object.entries(SYMBOL_COUNTS)) {
+        for(let i=0; i<count; i++) {
+            symbols.push(symbol);
+        }
     }
+    
+    const reels = [[], [], []];
+    for(let i=0; i<COLS; i++) {
+        const reelSymbols = [...symbols];
+        for(let j=0; j<ROWS; j++) {
+            const randomIndex = Math.floor(Math.random() * reelSymbols.length)
+            const selectedSymbol = reelSymbols[randomIndex];
+            reels[i].push(selectedSymbol);
+            reelSymbols.splice(randomIndex, 1); 
+        }
+    }
+
+    return reels;
 }
-spinSlot();
-let walletBalance = Deposit(); // Holding the value returned from Deposit() func.
-const numberOfLines = getNumofLineToBet();
-const betAmount = getBet(walletBalance, numberOfLines);
+const reel = spinSlot();
+console.log(reel);
+// let walletBalance = Deposit(); // Holding the value returned from Deposit() func.
+// const numberOfLines = getNumofLineToBet();
+// const betAmount = getBet(walletBalance, numberOfLines);
+
 
