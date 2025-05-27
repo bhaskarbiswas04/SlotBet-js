@@ -113,31 +113,49 @@ const printRows = (rows) => {
   }
 };
 
-const getWinnings = (rows, bet, lines)=> {
-    let winnings = 0;
-    for(let row=0; row<lines; row++) {
-      const symbols = rows[row];
-      let allSame = true;
-      for(const symbol of symbols) {
-        if(symbol != symbols[0]) {
-          allSame = false;
-          break;
-        }
-      }
-      
-      if(allSame) {
-        winnings += bet * SYMBOL_VALUES[symbols[0]];
+const getWinnings = (rows, bet, lines) => {
+  let winnings = 0;
+  for (let row = 0; row < lines; row++) {
+    const symbols = rows[row];
+    let allSame = true;
+    for (const symbol of symbols) {
+      if (symbol != symbols[0]) {
+        allSame = false;
+        break;
       }
     }
-    return winnings;
-}
+
+    if (allSame) {
+      winnings += bet * SYMBOL_VALUES[symbols[0]];
+    }
+  }
+  return winnings;
+};
 
 // Function Calls ----->
-const reel = spinSlot();
-const trans = transpose(reel);
-let walletBalance = Deposit(); // Holding the value returned from Deposit() func.
-const numberOfLines = getNumofLineToBet();
-const betAmount = getBet(walletBalance, numberOfLines);
-const winning = getWinnings(trans, betAmount, numberOfLines);
-printRows(trans);
-console.log("You won $" + winning);
+const game = () => {
+  let walletBalance = Deposit(); // Holding the value returned from Deposit() func.
+
+  while (true) {
+    console.log("Your wallet Balance is $" + walletBalance);
+    const numberOfLines = getNumofLineToBet();
+    const betAmount = getBet(walletBalance, numberOfLines);
+    walletBalance -= betAmount * numberOfLines; //will deduct the betamount after placing the bet
+    const reel = spinSlot();
+    const rows = transpose(reel);
+    printRows(rows);
+    const winning = getWinnings(rows, betAmount, numberOfLines);
+    console.log("You won $" + winning);
+    console.log("Available wallet balance:", walletBalance + winning * 3);
+
+    if (walletBalance <= 0) {
+      console.log("Low wallet Balance");
+      break;
+    }
+
+    const playAgain = prompt("Do you want to play again (y/n) ?");
+    if (playAgain != "y") break;
+  }
+};
+
+game();
