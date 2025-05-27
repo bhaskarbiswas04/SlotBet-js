@@ -3,7 +3,7 @@
 // 3. Collect the bet amount.
 // 4. Spin the slot machine.
 // 5. check if user won
-// 6. return the winnings / deduct the losing bet.
+// 6. return the winnings.
 // 7. Play Again.
 
 const prompt = require("prompt-sync")();
@@ -113,16 +113,31 @@ const printRows = (rows) => {
   }
 };
 
-// const getWinnings = (rows, bet, lines)=> {
-//     let winnings = 0;
-
-    
-// }
+const getWinnings = (rows, bet, lines)=> {
+    let winnings = 0;
+    for(let row=0; row<lines; row++) {
+      const symbols = rows[row];
+      let allSame = true;
+      for(const symbol of symbols) {
+        if(symbol != symbols[0]) {
+          allSame = false;
+          break;
+        }
+      }
+      
+      if(allSame) {
+        winnings += bet * SYMBOL_VALUES[symbols[0]];
+      }
+    }
+    return winnings;
+}
 
 // Function Calls ----->
 const reel = spinSlot();
 const trans = transpose(reel);
+let walletBalance = Deposit(); // Holding the value returned from Deposit() func.
+const numberOfLines = getNumofLineToBet();
+const betAmount = getBet(walletBalance, numberOfLines);
+const winning = getWinnings(trans, betAmount, numberOfLines);
 printRows(trans);
-// let walletBalance = Deposit(); // Holding the value returned from Deposit() func.
-// const numberOfLines = getNumofLineToBet();
-// const betAmount = getBet(walletBalance, numberOfLines);
+console.log("You won $" + winning);
