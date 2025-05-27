@@ -149,7 +149,7 @@ const game = () => {
     const winning = getWinnings(rows, betAmount, numberOfLines);
     console.log("You won $" + winning); 
     walletBalance = walletBalance + winning * 3;
-    console.log("Available wallet balance:", walletBalance + winning * 3);
+    console.log("Available wallet balance:", walletBalance);
 
     if (walletBalance <= 0) {
       console.log("Low wallet Balance");
