@@ -10,6 +10,6 @@ Steps to complete the proj.
 // 6. return the winnings.
 // 7. Play Again.
 
-winnings += bet * symbol_values[symbol[0]];
+In this project I have learned about fundamentals of javascript, how functions works and how we call functions to do the job.
 
 
