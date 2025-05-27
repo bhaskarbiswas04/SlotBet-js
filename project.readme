@@ -1,4 +1,15 @@
 Reference video : https://www.youtube.com/watch?v=E3XxeE7NF30&t=506s
 Channel : Tech with Tim.
 
+Steps to complete the proj.
+// 1. Deposit some amount.
+// 2. Determine total lines of bet
+// 3. Collect the bet amount.
+// 4. Spin the slot machine.
+// 5. check if user won
+// 6. return the winnings.
+// 7. Play Again.
+
 winnings += bet * symbol_values[symbol[0]];
+
+

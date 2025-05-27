@@ -27,6 +27,8 @@ const SYMBOL_VALUES = {
   D: 2,
 };
 
+
+
 // Functions ---->
 const Deposit = () => {
   while (true) {
@@ -145,7 +147,8 @@ const game = () => {
     const rows = transpose(reel);
     printRows(rows);
     const winning = getWinnings(rows, betAmount, numberOfLines);
-    console.log("You won $" + winning);
+    console.log("You won $" + winning); 
+    walletBalance = walletBalance + winning * 3;
     console.log("Available wallet balance:", walletBalance + winning * 3);
 
     if (walletBalance <= 0) {
